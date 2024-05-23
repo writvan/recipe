@@ -1,0 +1,28 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>Recipes</h1>
+        <script>
+            function submitForm(event) {
+                event.preventDefault(); // Prevent the default form submission
+                const recipeInput = document.getElementById("recipeInput").value;
+                const url = "{{ url_for('recipe_detail', name='__RECIPE__') }}".replace('__RECIPE__', encodeURIComponent(recipeInput));
+                window.location.href = url;
+            }
+        </script>
+        <form id="recipeForm" onsubmit="submitForm(event)">
+            <input list="recipes" id="recipeInput" name="name" placeholder="Type a recipe name">
+            <datalist id="recipes">
+                {% if recipes %}
+                    {% for recipe in recipes %}
+                        <option value="{{ recipe }}"></option>
+                    {% endfor %}
+                {% else %}
+                    <option disabled>No recipes found.</option>
+                {% endif %}
+            </datalist>
+            <button type="submit">Go</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "header.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ recipe.name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="bg-gray-800 text-white py-4">
+        <h1>{{ recipe.name }}</h1>
+    </header>
+    <div class="container mx-auto mt-8 p-4">
+        <h2 class="text-2xl">{{ recipe.name }}</h2>
+        <img src="{{ recipe.image }}" alt="{{ recipe.name }} Image" class="max-w-full max-h-96 my-4">
+        <p class="text-lg">{{ recipe.description }}</p>
+        <h2 class="text-2xl mt-8">Ingredients:</h2>
+        <ul class="list-none p-0">
+            {% for ingredient in recipe.ingredients %}
+                <li class="bg-gray-200 my-4 p-4 border border-gray-300">
+                    {% if ingredient[0] %}
+                        <img src="{{ ingredient[0] }}" alt="{{ ingredient[1] }} Image" class="max-w-32 max-h-32 mr-4">
+                    {% endif %}
+                    {{ ingredient[1] }}
+                </li>
+            {% endfor %}
+        </ul>
+        <form action="{{ url_for('add_favorite') }}" method="POST" class="mt-8">
+            <input type="hidden" name="name" value="{{ recipe.name }}">
+            <input type="hidden" name="image" value="{{ recipe.image }}">
+            <input type="hidden" name="description" value="{{ recipe.description }}">
+            <button type="submit" class="bg-green-600 text-white py-2 px-4 rounded cursor-pointer text-lg">Add to Favorites</button>
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}

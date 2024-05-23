@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Recipes{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <header class="bg-gray-800 text-white p-4">
+        <nav class="container mx-auto flex justify-between items-center">
+            <a href="{{ url_for('index') }}" class="text-xl font-bold">Recipe App</a>
+            <ul class="flex space-x-4">
+                <li><a href="{{ url_for('index') }}" class="hover:underline">Home</a></li>
+                <li><a href="{{ url_for('favorites_page') }}" class="hover:underline">Favorites</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container mx-auto mt-8">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
